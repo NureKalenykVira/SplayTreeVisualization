@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Про алгоритм
+		</title>		
+	<link rel="stylesheet" href="algorithm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <div id="wrapper">
+      <nav>
+        <ul>
+        <li>
+          <a class="button" href="splay-tree.html">До візуалізації</a>
+          </li>
+          <li>
+            <a class="button" href="help.html">Допомога</a>
+            </li>
+         </ul>
+    </nav>
+      <header>
+      <h2>
+        <strong>SPLAY ДЕРЕВА</strong>
+        </h2>
+      
+      </header>
+      
+    <main>
+        <div>
+            <section id="1"><h3><strong>Вступ</strong></h3>
+                <article class="article">
+                    Splay дерево — це саморегулююча структура даних бінарного дерева пошуку, що означає, що структура дерева динамічно коригується на основі доступу або вставки елементів. Іншими словами, дерево автоматично переорганізовує себе так, що часто доступні або вставлені елементи стають ближче до кореневого вузла.
+                </article>
+            </section>
+            <section id="2"><h3><strong>Історія</strong></h3>
+                <article class="article">
+                    Splay дерево було вперше представлено Деніелом Домініком Слітором та Робертом Ендре Тарджаном у 1985 році. Воно має просту та ефективну реалізацію, яка дозволяє йому виконувати операції пошуку, вставки та видалення за часом O(log n) в умовній складності, де n — кількість елементів у дереві.
+                </article>
+            </section>
+            <section id="3"><h3><strong>Ідея</strong></h3>
+                <article class="article">
+                    Основна ідея splay дерев полягає в тому, щоб перемістити останній доступний або вставлений елемент до кореня дерева, виконуючи послідовність обертань дерева, звані "splaying". Splaying — це процес реструктуризації дерева, в результаті якого останній доступний або вставлений елемент стає новим коренем і поступово переміщує решту вузлів ближче до кореня.
+                    <br><br> Splay дерева ефективні на практиці завдяки своїй саморегулюючій природі, яка зменшує загальний час доступу до часто використовуваних елементів. Це робить їх гарним вибором для додатків, які вимагають швидких та динамічних структур даних, таких як системи кешування, стиснення даних та алгоритми маршрутизації мереж.
+                    Однак, головний недолік splay дерев полягає в тому, що вони не гарантують збалансованої структури дерева, що може призвести до зниження продуктивності в найгірших сценаріях. Також splay дерева не підходять для додатків, які вимагають гарантованої продуктивності в найгіршому випадку, таких як системи реального часу або системи з критичною безпекою.
+                    <br><br> Загалом, splay дерево — це потужна та універсальна структура даних, яка пропонує швидкий та ефективний доступ до часто використовуваних або вставлених елементів. Вони широко використовуються в різних додатках і пропонують відмінний компроміс між продуктивністю та простотою.
+                </article>
+            </section>
+            <section id="4"><h3><strong>Операції в splay дереві</strong></h3>
+                <article class="article">
+                    Splay дерево — це самобалансуюче бінарне дерево пошуку, розроблене для ефективного доступу до елементів даних на основі їх ключових значень.
+
+                    <br><br>Основною особливістю splay дерев є те, що кожен раз, коли елемент доступний, він переміщується до кореня дерева, створюючи більш збалансовану структуру для наступних доступів.
+                    Splay дерева характеризуються використанням обертань, які є локальними трансформаціями дерева, що змінюють його форму, але зберігають порядок елементів.
+                    <br><br>Обертання використовуються для переміщення доступного елемента до кореня дерева, а також для відновлення балансу дерева, якщо воно стає незбалансованим після кількох доступів.
+                    <br><br>Операції в splay дерева:
+                    <ul>
+                        <li>Вставка: Щоб вставити новий елемент у дерево, спочатку виконайте звичайну вставку бінарного дерева пошуку. Потім застосуйте обертання, щоб перенести новостворений елемент до кореня дерева.</li>
+                        <li>Видалення: Щоб видалити елемент із дерева, спочатку знайдіть його за допомогою пошуку бінарного дерева пошуку. Потім, якщо елемент не має дітей, просто видаліть його. Якщо він має одну дитину, підніміть цю дитину на його місце в дереві. Якщо у нього двоє дітей, знайдіть спадкоємця елемента (найменший елемент у його правому піддереві), поміняйте ключі з елементом, який потрібно видалити, та видаліть спадкоємця замість нього.</li>
+                        <li>Пошук: Щоб знайти елемент у дереві, спочатку виконайте пошук бінарного дерева пошуку. Якщо елемент знайдено, застосуйте обертання, щоб перенести його до кореня дерева. Якщо він не знайдений, застосуйте обертання до останнього відвіданого вузла у пошуку, який стає новим коренем.</li>
+                        <li>Обертання: Обертання, які використовуються в splay дереві, можуть бути Zig або Zig-Zig обертаннями. Обертання Zig використовується для переміщення вузла до кореня, тоді як обертання Zig-Zig використовується для балансування дерева після кількох доступів до елементів у тому самому піддереві.</li>
+                    </ul>
+                </article>
+            </section>
+            <section id="5"><h3><strong>Обертання</strong></h3>
+                <article class="article">
+                    Ось пояснення операцій обертання крок за кроком:
+                    <br><br>Обертання Zig: Якщо вузол має праву дитину, виконайте праве обертання, щоб перенести його до кореня. Якщо він має ліву дитину, виконайте ліве обертання.
+                    <br><br>Обертання Zig-Zig: Якщо вузол має онука, який також є дитиною його дитини справа або зліва, виконайте подвійне обертання, щоб збалансувати дерево. Наприклад, якщо вузол має праву дитину, а права дитина має ліву дитину, виконайте обертання право-ліво. Якщо вузол має ліву дитину, а ліва дитина має праву дитину, виконайте обертання ліво-право.
+                    <br><br>Примітка: Конкретні деталі реалізації, включаючи точні обертання, які використовуються, можуть варіюватися в залежності від точної форми splay дерева.
+                    <br><br>Обертання в Splay дерева:
+                    <ul>
+                        <li>Обертання Zig</li>
+                        <li>Обертання Zag</li>
+                        <li>Обертання Zig-Zig</li>
+                        <li>Обертання Zag-Zag</li>
+                        <li>Обертання Zig-Zag</li>
+                        <li>Обертання Zag-Zig</li>
+                    </ul>
+                </article>
+            </section>
+            <section id="6"><h3><strong>Обертання Zig:</strong></h3>
+                <article class="article">
+                    Обертання Zig в splay дереві працює подібно до одиночного правого обертання в обертаннях AVL дереві. Це обертання призводить до переміщення вузлів на одну позицію праворуч від їх поточного розташування. 
+                    <img class="img" src="https://media.geeksforgeeks.org/wp-content/uploads/20230203100633/Zig-rotation.png">
+                </article>
+            </section>
+            <section id="7"><h3><strong>Обертання Zag:</strong></h3>
+                <article class="article">
+                    Обертання Zag у splay дереві діє подібно до одиночного лівого обертання в обертаннях AVL дереві. Під час цього обертання вузли переміщуються на одну позицію ліворуч від їх поточного розташування.
+                    <img class="img" src="https://media.geeksforgeeks.org/wp-content/uploads/20230203101229/zag-rotation.png">
+                </article>
+            </section>
+            <section id="8"><h3><strong>Обертання Zig-Zig:</strong></h3>
+                <article class="article">
+                    Обертання Zig-Zig у splay дереві є подвійним обертанням zig. В результаті цього обертання вузли переміщуються на дві позиції праворуч від їх поточного розташування. 
+                    <img class="img" src="https://media.geeksforgeeks.org/wp-content/uploads/20230203102114/Zig-zig-rotation.png">
+                </article>
+            </section>
+            <section id="9"><h3><strong>Обертання Zag-Zag:</strong></h3>
+                <article class="article">
+                    У splay дерев обертання Zag-Zag є подвійним обертанням zag. Це обертання змушує вузли переміщуватися на дві позиції ліворуч від їх поточного положення. 
+                    <img class="img" src="https://media.geeksforgeeks.org/wp-content/uploads/20230203103016/zag--zag-rotation.png">
+                </article>
+            </section>
+            <section id="10"><h3><strong>Обертання Zig-Zag:</strong></h3>
+                <article class="article">
+                    Обертання Zig-Zag у splay дереві є комбінацією обертання zig, за яким слідує обертання zag. В результаті цього обертання вузли переміщуються на одну позицію праворуч, а потім на одну позицію ліворуч від їх поточного розташування.
+                    <img class="img" src="https://media.geeksforgeeks.org/wp-content/uploads/20230203104532/Zig-zag-rotation2.png">
+                </article>
+            </section>
+            <section id="11"><h3><strong>Обертання Zag-Zig:</strong></h3>
+                <article class="article">
+                    Обертання Zag-Zig у splay дереві є серією обертань zag, за якими слідує обертання zig. В результаті вузли переміщуються на одну позицію ліворуч, а потім зміщуються на одну позицію праворуч від їх поточного розташування. 
+                    <img class="img" src="https://media.geeksforgeeks.org/wp-content/uploads/20230203105833/zag-zig-rotation.png">
+                </article>
+            </section>
+            <section id="12"><h3><strong>Реалізація на javascript:</strong></h3>
+                <div class="code-block">
+                    <pre><code>class Node {
+constructor(key) {
+	this.key = key;
+	this.left = null;
+	this.right = null;
+}
+}
+
+class SplayTree {
+static newNode(key) {
+	const node = new Node(key);
+	return node;
+}
+
+static rightRotate(x) {
+	const y = x.left;
+	x.left = y.right;
+	y.right = x;
+	return y;
+}
+
+static leftRotate(x) {
+	const y = x.right;
+	x.right = y.left;
+	y.left = x;
+	return y;
+}
+
+static splay(root, key) {
+	if (root == null || root.key == key) {
+	return root;
+	}
+
+	if (root.key > key) {
+	if (root.left == null) {
+		return root;
+	}
+
+	if (root.left.key > key) {
+		root.left.left = SplayTree.splay(root.left.left, key);
+		root = SplayTree.rightRotate(root);
+	} else if (root.left.key < key) {
+		root.left.right = SplayTree.splay(root.left.right, key);
+		if (root.left.right != null) {
+		root.left = SplayTree.leftRotate(root.left);
+		}
+	}
+	return root.left == null ? root : SplayTree.rightRotate(root);
+	} else {
+	if (root.right == null) {
+		return root;
+	}
+
+	if (root.right.key > key) {
+		root.right.left = SplayTree.splay(root.right.left, key);
+		if (root.right.left != null) {
+		root.right = SplayTree.rightRotate(root.right);
+		}
+	} else if (root.right.key < key) {
+		root.right.right = SplayTree.splay(root.right.right, key);
+		root = SplayTree.leftRotate(root);
+	}
+	return root.right == null ? root : SplayTree.leftRotate(root);
+	}
+}
+
+static insert(root, key) {
+	if (root == null) {
+	return SplayTree.newNode(key);
+	}
+
+	root = SplayTree.splay(root, key);
+
+	if (root.key == key) {
+	return root;
+	}
+
+	const node = SplayTree.newNode(key);
+	if (root.key > key) {
+	node.right = root;
+	node.left = root.left;
+	root.left = null;
+	} else {
+	node.left = root;
+	node.right = root.right;
+	root.right = null;
+	}
+	return node;
+}
+
+static preOrder(node) {
+	if (node != null) {
+	console.log(node.key + " ");
+	SplayTree.preOrder(node.left);
+	SplayTree.preOrder(node.right);
+	}
+}
+}
+
+let root = null;
+root = SplayTree.insert(root, 100);
+root = SplayTree.insert(root, 50);
+root = SplayTree.insert(root, 200);
+root = SplayTree.insert(root, 40);
+root = SplayTree.insert(root, 60);
+console.log("Preorder traversal of the modified Splay tree:");
+SplayTree.preOrder(root);</code></pre>
+                </div>
+            </section>
+            <section id="13"><h3><strong>Реалізація на c#:</strong></h3>
+                <div class="code-block">
+                    <pre><code>
+using System;
+ 
+class Node {
+    public int key;
+    public Node left, right;
+}
+ 
+class SplayTree {
+    static Node newNode(int key)
+    {
+        Node node = new Node();
+        node.key = key;
+        node.left = node.right = null;
+        return node;
+    }
+ 
+    static Node rightRotate(Node x)
+    {
+        Node y = x.left;
+        x.left = y.right;
+        y.right = x;
+        return y;
+    }
+ 
+    static Node leftRotate(Node x)
+    {
+        Node y = x.right;
+        x.right = y.left;
+        y.left = x;
+        return y;
+    }
+ 
+    static Node splay(Node root, int key)
+    {
+        if (root == null || root.key == key)
+            return root;
+ 
+        if (root.key > key) {
+            if (root.left == null)
+                return root;
+            if (root.left.key > key) {
+                root.left.left = splay(root.left.left, key);
+                root = rightRotate(root);
+            }
+            else if (root.left.key < key) {
+                root.left.right
+                    = splay(root.left.right, key);
+                if (root.left.right != null)
+                    root.left = leftRotate(root.left);
+            }
+            return (root.left == null) ? root
+                                       : rightRotate(root);
+        }
+        else {
+            if (root.right == null)
+                return root;
+            if (root.right.key > key) {
+                root.right.left
+                    = splay(root.right.left, key);
+                if (root.right.left != null)
+                    root.right = rightRotate(root.right);
+            }
+            else if (root.right.key < key) {
+                root.right.right
+                    = splay(root.right.right, key);
+                root = leftRotate(root);
+            }
+            return (root.right == null) ? root
+                                        : leftRotate(root);
+        }
+    }
+ 
+    static Node insert(Node root, int key)
+    {
+        if (root == null)
+            return newNode(key);
+ 
+        root = splay(root, key);
+ 
+        if (root.key == key)
+            return root;
+ 
+        Node node = newNode(key);
+        if (root.key > key) {
+            node.right = root;
+            node.left = root.left;
+            root.left = null;
+        }
+        else {
+            node.left = root;
+            node.right = root.right;
+            root.right = null;
+        }
+        return node;
+    }
+ 
+    static void preOrder(Node node)
+    {
+        if (node != null) {
+            Console.Write(node.key + " ");
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+ 
+    public static void Main(string[] args)
+    {
+        Node root = null;
+        root = insert(root, 100);
+        root = insert(root, 50);
+        root = insert(root, 200);
+        root = insert(root, 40);
+        root = insert(root, 60);
+        Console.WriteLine(
+            "Preorder traversal of the modified Splay tree:");
+        preOrder(root);
+    }
+}
+                    </code></pre>
+                </div>
+            </section>
+            <section id="14"><h3><strong>Реалізація на python:</strong></h3>
+                <div class="code-block">
+                    <pre><code>
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+ 
+def newNode(key):
+    node = Node(key)
+    return node
+ 
+def rightRotate(x):
+    y = x.left
+    x.left = y.right
+    y.right = x
+    return y
+ 
+def leftRotate(x):
+    y = x.right
+    x.right = y.left
+    y.left = x
+    return y
+ 
+def splay(root, key):
+    if root is None or root.key == key:
+        return root
+     
+    if root.key > key:
+        if root.left is None:
+            return root
+        if root.left.key > key:
+            root.left.left = splay(root.left.left, key)
+            root = rightRotate(root)
+        elif root.left.key < key:
+            root.left.right = splay(root.left.right, key)
+            if root.left.right is not None:
+                root.left = leftRotate(root.left)
+        return root.left if root.left is None else rightRotate(root)
+    else:
+        if root.right is None:
+            return root
+        if root.right.key > key:
+            root.right.left = splay(root.right.left, key)
+            if root.right.left is not None:
+                root.right = rightRotate(root.right)
+        elif root.right.key < key:
+            root.right.right = splay(root.right.right, key)
+            root = leftRotate(root)
+        return root.right if root.right is None else leftRotate(root)
+ 
+def insert(root, key):
+    if root is None:
+        return newNode(key)
+ 
+    root = splay(root, key)
+ 
+    if root.key == key:
+        return root
+ 
+    node = newNode(key)
+    if root.key > key:
+        node.right = root
+        node.left = root.left
+        root.left = None
+    else:
+        node.left = root
+        node.right = root.right
+        root.right = None
+    return node
+ 
+def preOrder(node):
+    if node is not None:
+        print(node.key, end=' ')
+        preOrder(node.left)
+        preOrder(node.right)
+ 
+if __name__ == '__main__':
+    root = None
+    root = insert(root, 100)
+    root = insert(root, 50)
+    root = insert(root, 200)
+    root = insert(root, 40)
+    root = insert(root, 60)
+    print("Preorder traversal of the modified Splay tree:")
+    preOrder(root)
+</code></pre>
+                </div>
+            </section>
+            <section id="15"><h3><strong>Часова складність:</strong></h3>
+                <article class="article">
+                    Для виконання m операцій на splay дереві потрібно O(mlog n) кроків, де n — розмір дерева. Таким чином, умовна складність splay дерева становить O(log n). Часову складність підтримки splay дерев аналізують за допомогою амортизованого аналізу. Кожна операція з деревом має реальні витрати, пропорційні її часу виконання. Кожна операція splay має умовну вартість O(log n), отже в середньому часова складність кожної операції на splay дереві становить
+                    <ul>
+                        <li>Пошук: Пошук вузла в дереві займає O(log n).</li>
+                        <li>Вставка: Вставка вузла в дерево займає O(log n).</li>
+                        <li>Видалення: Видалення вузла з дерева займає O(log n).</li>
+                    </ul>
+                </article>
+            </section>
+            <section id="16"><h3><strong>Недоліки splay дерев:</strong></h3>
+                <article class="article"><ul>
+                    <li>Незбалансовані дерева: Splay дерева можуть стати незбалансованими та неефективними, якщо дерево неодноразово обертається в одному напрямку.</li>
+                    <li>Використання пам'яті: Splay дерева можуть використовувати багато пам'яті порівняно з іншими структурами даних, оскільки кожен вузол містить додаткову інформацію.</li>
+                    <li>Складність: Splay дерева можуть мати високу складність часу для базових операцій, таких як вставка та видалення, оскільки дерева потребують переорганізації після кожної операції.</li>
+                    <li>Надмірність реорганізації: Операція splaying, потрібна в кожній операції, може бути часовитратною та викликати високі накладні витрати.</li>
+                    <li>Обмежені випадки використання: Splay дерева не підходять для всіх структур даних та мають обмежені випадки використання, оскільки вони не ефективно обробляють дублікати ключів.</li>
+                </ul>
+                </article>
+            </section>
+            <section id="17"><h3><strong>Застосування splay дерев:</strong></h3>
+                <article class="article"><ul>
+                    <li>Кешування: Splay дерева можуть бути використані для реалізації управління кеш-пам'яттю, де найчастіше використовувані елементи переміщуються на верхівку дерева для швидшого доступу.</li>
+                    <li>Індексація баз даних: Splay дерева можуть бути використані для індексації баз даних для швидшого пошуку та отримання даних.</li>
+                    <li>Файлові системи: Splay дерева можуть бути використані для зберігання метаданих файлової системи, таких як таблиця розподілу, структура директорії та атрибути файлів.</li>
+                    <li>Стиснення даних: Splay дерева можуть бути використані для стиснення даних шляхом ідентифікації та кодування повторюваних візерунків.</li>
+                    <li>Обробка тексту: Splay дерева можуть бути використані в додатках для обробки тексту, таких як перевірка орфографії, де слова зберігаються у splay дереві для швидкого пошуку та отримання.</li>
+                    <li>Графові алгоритми: Splay дерева можуть бути використані для реалізації графових алгоритмів, таких як знаходження найкоротшого шляху в зваженому графі.</li>
+                    <li>Онлайн-ігри: Splay дерева можуть бути використані в онлайн-іграх для зберігання та управління високими результатами, таблицями лідерів та статистикою гравців.</li>
+                </ul>
+                </article>
+            </section>
+            <section id="18"><h3><strong>Висновок</strong></h3>
+                <article class="article">
+                    В результаті, Splay дерева — це динамічна самобалансуюча структура даних бінарного дерева пошуку, яка забезпечує ефективний спосіб пошуку, вставки та видалення елементів. Вони відрізняються від традиційних збалансованих бінарних дерев пошуку, таких як AVL та Червоно-чорні дерева, оскільки вони переорганізовують дерево після кожної операції, переміщуючи нещодавно доступний вузол до кореня. Це допомагає зменшити висоту дерева і призводить до швидших операцій. Splay дерева є високо гнучкими і можуть бути адаптованими до різних випадків використання. Хоча вони можуть мати вищий наклад в термінах обертань, їх простота та універсальність роблять їх корисними інструментами для вирішення широкого спектру проблем.
+                </article>
+            </section>
+        
+          </div>
+          <aside id="shortcuts">
+            <section><h3>Cтруктура сторінки:</h3><article>
+              <ul>
+                <li><a class="a" href="#1">Вступ</a></li>
+                <li><a class="a" href="#2">Історія</a></li>
+                <li><a class="a" href="#3">Ідея</a></li>
+                <li><a class="a" href="#4">Операції в splay дереві</a></li>
+                <li><a class="a" href="#5">Обертання</a></li>
+                <li><a class="a" href="#6">Обертання Zig</a></li>
+                <li><a class="a" href="#7">Обертання Zag</a></li>
+                <li><a class="a" href="#8">Обертання Zig-Zig</a></li>
+                <li><a class="a" href="#9">Обертання Zag-Zag</a></li>
+                <li><a class="a" href="#10">Обертання Zig-Zag</a></li>
+                <li><a class="a" href="#11">Обертання Zag-Zig</a></li>
+                <li><a class="a" href="#12">Реалізація на javascript</a></li>
+                <li><a class="a" href="#13">Реалізація на c#</a></li>
+                <li><a class="a" href="#14">Реалізація на python</a></li>
+                <li><a class="a" href="#15">Часова складність</a></li>
+                <li><a class="a" href="#16">Недоліки splay дерев</a></li>
+                <li><a class="a" href="#17">Застосування splay дерев</a></li>
+                <li><a class="a" href="#18">Висновок</a></li>
+                <li><a class="a" href="#19">Більше за темою</a></li>
+            </ul>
+            </article></section>
+          </aside>
+            <section id="19"><h3>Більше за темою:</h3><article>
+              <ul>
+                <li>“Data Structures and Algorithm Analysis in Java” Mark Allen Weiss</li>
+                <li>“Introduction to Algorithms” Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein</li>
+                <li>“Data Structures and Algorithms in C++” Michael T. Goodrich and Roberto Tamassia</li>
+            </ul>
+            </article></section>
+      </main>
+    <footer>
+      <h2><strong>Дякую за увагу!</strong></h2>
+        </footer></div>

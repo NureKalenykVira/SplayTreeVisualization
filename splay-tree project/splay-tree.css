@@ -1,0 +1,126 @@
+@charset "utf-8";
+
+
+body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	background: rgb(250, 247, 238); 
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+}
+
+
+
+
+.VisualizationMainPage #mainContent {
+	/*padding: 0 20px; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+	background: rgb(250, 247, 238);
+    height: 631px;
+}
+
+
+
+.VisualizationMainPage #container {
+	background: rgb(250, 247, 238);
+	/*margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */
+	text-align: left; /* this overrides the text-align: center on the body element. */
+}
+
+
+.VisualizationMainPage #algoControlSection
+{
+	background: rgb(250, 247, 238); 
+	color:#000000; 
+    margin-left: 15%;
+    padding: 10px;
+}
+
+
+.VisualizationMainPage #generalAnimationControlSection
+{
+	background: rgb(250, 247, 238); 
+	color:rgba(56, 102, 65); 
+    margin-left: 0%;
+}
+
+.VisualizationMainPage  #header { 
+	background: #8affb5; 
+	color:rgba(56, 102, 65);
+	padding: 0 10px 0 20px; 
+  
+} 
+ 
+.VisualizationMainPage #header  A:visited 
+	  { text-decoration:none;
+        color:rgba(56, 102, 65); 
+	   }
+	   
+	   
+.VisualizationMainPage #header h1 {
+	margin: 0; 
+	padding: 10px 0; 
+	}
+	   
+.VisualizationMainPage #header A:link {
+    text-decoration:none;
+    color:rgba(56, 102, 65);
+	}
+	
+	
+.VisualizationMainPage #container {
+	background: rgb(250, 247, 238);
+	margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */
+	text-align: left; /* this overrides the text-align: center on the body element. */
+}	
+	
+	
+.VisualizationMainPage #footer  A:visited { text-decoration:none;
+     color:rgba(56, 102, 65); 
+}
+
+.VisualizationMainPage #footer A:link {
+    text-decoration:none;
+	color:rgba(56, 102, 65);
+}
+
+.VisualizationMainPage #mainContent h1{
+	padding: 0 20px; 
+	background: rgb(250, 247, 238);
+	color:#8affb5;
+}
+
+.VisualizationMainPage #mainContent h2{
+	padding: 0 20px; 
+	background: rgb(250, 247, 238);
+	color:#8affb5
+}
+
+.VisualizationMainPage #mainContent h3{
+	padding: 0 20px; 
+	background: rgb(250, 247, 238);
+	color:#8affb5;
+}
+
+.VisualizationMainPage #footer { 
+	padding: 0 10px;
+    background: #8affb5; 
+	color:rgba(56, 102, 65);
+} 
+.VisualizationMainPage #footer p {
+	margin: 0; 	padding: 10px 0; 
+}
+
+EM {text-decoration: bold;}
+
+#canvas {
+    width: 1000px;
+    height: 500px;
+}
+
+@media screen and (max-width: 600px) {
+    #canvas {
+        width: 600px;
+        height: 300px;
+    }
+}
